@@ -1,0 +1,31 @@
+// 1. Custom Exception
+class InvalidAmountException implements Exception {
+  String errorMessage() => "Amount must be greater than 0";
+}
+
+// 2. Function that performs transfer
+void transferMoney(double amount) {
+  if (amount <= 0) {
+    throw InvalidAmountException();        // Custom exception
+  } else if (amount > 5000) {
+    throw FormatException("Amount too large"); // Built-in exception
+  } else {
+    print("Transfer successful");
+  }
+}
+
+// 3. Main function with try / on / finally
+void main() {
+  try {
+    transferMoney(6000);      // Try changing this number to test
+  } 
+  on InvalidAmountException catch (e) {
+    print("InvalidAmountException: ${e.errorMessage()}");
+  } 
+  on FormatException catch (e) {
+    print("FormatException: ${e.message}");
+  } 
+  finally {
+    print("Transaction check completed");
+  }
+}
